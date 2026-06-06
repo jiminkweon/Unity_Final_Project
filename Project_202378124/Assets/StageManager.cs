@@ -80,7 +80,7 @@ public class StageManager : MonoBehaviour
 
 
 
-        // [핵심 로직] 씬 이름에 특정 단어가 포함되어 있는지 검사합니다.
+        // 씬 이름에 특정 단어가 포함되어 있는지 검사
 
         if (currentSceneName.Contains("Room1"))
 

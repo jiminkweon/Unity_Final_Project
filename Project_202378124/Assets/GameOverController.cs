@@ -54,7 +54,7 @@ public class GameOverController : MonoBehaviour
     {
         string targetScene = "Room1"; // 기본 사태 대비 백업용
 
-        // StageManager가 가공해서 기억해둔 대장 씬(Room1, Room2, Room3)을 가져옴
+        // StageManager가 가공해서 기억해둔 씬(Room1, Room2, Room3)을 가져옴
         if (StageManager.Instance != null)
         {
             targetScene = StageManager.Instance.lastPlayedScene;

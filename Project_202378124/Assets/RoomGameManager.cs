@@ -31,22 +31,22 @@ public class RoomGameManager : MonoBehaviour
     public AudioClip wrongSFX;
     
     [Header("남은 시간별 경고음 (3초/2초/1초)")]
-    public AudioClip warningThreeSecSFX;  // ⏰ 3초 남았을 때 소리
-    public AudioClip warningTwoSecSFX;    // ⏰ 2초 남았을 때 소리
-    public AudioClip warningOneSecSFX;    // ⏰ 1초 남았을 때 소리
+    public AudioClip warningThreeSecSFX;  // 3초 남았을 때 소리
+    public AudioClip warningTwoSecSFX;    // 2초 남았을 때 소리
+    public AudioClip warningOneSecSFX;    // 1초 남았을 때 소리
 
     [Header("성공 클리어 효과음")]
-    public AudioClip successClearSFX;      // 🏆 [추가] 방을 클리어했을 때 오프닝/다음 씬 가기 전 터질 효과음!
+    public AudioClip successClearSFX;      // [추가] 방을 클리어했을 때 오프닝/다음 씬 가기 전 터질 효과음
     
     private AudioSource audioSource;
 
     private bool isGameOver = false;
     private bool isSuccessDelayRunning = false;
 
-    // 🔒 [추가] 정답 클릭 시 뒤에 깔린 배경까지 동시에 클릭되어 엑스가 같이 뜨는 걸 막는 방패
+    // 정답 클릭 시 뒤에 깔린 배경까지 동시에 클릭되어 엑스가 같이 뜨는 걸 막음
     private bool isCorrectProcessedThisFrame = false;
 
-    // 각 초마다 소리가 중복해서 마구 터지지 않게 체크해주는 안전장치들
+    // 각 초마다 소리가 중복해서 마구 터지지 않게 체크
     private bool played3Sec = false;
     private bool played2Sec = false;
     private bool played1Sec = false;
@@ -91,7 +91,7 @@ public class RoomGameManager : MonoBehaviour
             {
                 timerText.color = Color.red;
 
-                // 🎵 정교하게 남은 시간을 판단하여 3초, 2초, 1초에 각각 한 번씩만 재생
+                // 정교하게 남은 시간을 판단하여 3초, 2초, 1초에 각각 한 번씩만 재생
                 if (time == 3 && !played3Sec)
                 {
                     played3Sec = true;
@@ -118,7 +118,7 @@ public class RoomGameManager : MonoBehaviour
             GameResult(false);
     }
 
-    // 🔒 [추가] 매 프레임이 끝나는 시점에 정답 방패를 해제해 줍니다.
+    // 매 프레임이 끝나는 시점에 정답 방패를 해제
     void LateUpdate()
     {
         isCorrectProcessedThisFrame = false;
@@ -144,7 +144,7 @@ public class RoomGameManager : MonoBehaviour
             return;
         }
 
-        // 🔒 정답이 감지되었으므로 방패 활성화 (배경 클릭 무시용)
+        
         isCorrectProcessedThisFrame = true;
 
         foundObjects.Add(clickedObject);
@@ -168,7 +168,7 @@ public class RoomGameManager : MonoBehaviour
         if (isGameOver)
             return;
 
-        // 🔒 [추가] 만약 정답 처리가 이미 일어난 프레임이라면 엑스 창(오답) 처리를 강제로 스킵합니다!
+        // 만약 정답 처리가 이미 일어난 프레임이라면 엑스 창(오답) 처리를 강제로 스킵
         if (isCorrectProcessedThisFrame)
             return;
 
@@ -277,13 +277,13 @@ public class RoomGameManager : MonoBehaviour
     {
         isSuccessDelayRunning = true;
 
-        // 🎵 [추가] 다음 씬으로 부드럽게 넘어가기 전, 클리어 성공 효과음을 우렁차게 재생합니다.
+        
         if (successClearSFX != null && audioSource != null)
         {
             audioSource.PlayOneShot(successClearSFX);
         }
 
-        // 효과음이 다 들릴 수 있도록 0.8초 동안 대기 여운을 줍니다.
+        
         yield return new WaitForSeconds(0.8f);
 
         GameResult(true);
